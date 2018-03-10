@@ -9,15 +9,16 @@ import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter } from 'react-router-dom'
 import burgerReducer from './store/reducers/burgerBuilder'
 import orderReducer from './store/reducers/order'
+import authReducer from './store/reducers/auth'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const logger = store =>{
   return next => {
     return action => {
-      console.log('[Middleware] dispatching: ', action)
+      // console.log('[Middleware] dispatching: ', action)
       const result = next( action )
-      console.log('[Middleware] next state: ', store.getState() )
+      // console.log('[Middleware] next state: ', store.getState() )
       return result
     }
   }
@@ -25,7 +26,8 @@ const logger = store =>{
 
 const rootReducer = combineReducers({
   burgerBuilder: burgerReducer,
-  order: orderReducer
+  order: orderReducer,
+  auth: authReducer
 })
 
 const store = createStore( rootReducer, composeEnhancers(
